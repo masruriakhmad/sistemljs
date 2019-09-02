@@ -1,0 +1,7 @@
+{
+  "name" : "html2pdf/codeigniter",
+  "require": {
+    "dompdf/dompdf" : "0.8.*",
+    "picqer/php-barcode-generator": "^0.3.0"
+  }
+}
