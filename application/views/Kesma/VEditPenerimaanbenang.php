@@ -349,17 +349,15 @@
 <script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
 <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
-
 <!-- plugins -->
-<script src="<?php echo base_url('assets/js/plugins/moment.min.js')?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/jquery.knob.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/select2.full.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/nouislider.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+
+
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->

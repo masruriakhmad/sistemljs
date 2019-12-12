@@ -115,45 +115,88 @@
                         <tr>
                           <th class="col-md-1">Kode partai</th>
                           <th class="col-md-3">Nama Kain</th>
+                          <th >Setting</th>
                           <th >Nomor Gulung</th>
+                          <th >Kg</th>
+                          <th >Subtotal Kg</th>
+                          <th >Jumlah Rol</th>  
                           <th >Nama Customer</th>
                           <th >Nomor Wo</th>
                           <th >Barcode</th>
+                          <?php if($this->session->userdata('level') != 'operator'){ ?>
+                          <th >Edit</th>
+                        <?php } ?>
                         </tr>
                       </thead>
                       <?php
                         $no = 1;
+                        $total_kg = 0;
+                        $total_rol = 0;
                         if($result->num_rows()>0)
                         {
                           foreach ($result->result() as $row)
                           {
                           ?>
                            <tr>
-                            <td><?php echo $row->kd_partai; ?></td>
-                            <td><?php echo $row->nm_kain.' Gramasi '.$row->gramasi; ?></td>
+                            <td><?php echo $row->no_partai; ?></td>
+                            <td><?php echo $row->nm_kain.' Gramasi '.$row->gramasi.'<br>'.$row->nm_warna; ?></td>
+                            <td><?php echo $row->setting; ?></td>
                             <td>
                               <?php $data=explode(',',$row->list_grey); 
                                 foreach($data AS $x)
                                 {
-                                  echo $x;
+                                  echo  "<a href='".base_url('Penerimaan_kainjadi/detailPerGulung/'.$x)."'>".$x."</a>";
                                   echo "<br>";
                                 }
                                 ?>
                                 </td>
+                                <td>
+                              <?php $data=explode(',',$row->list_kg); 
+                                foreach($data AS $y)
+                                {
+                                  echo $y;
+                                  echo "<br>";
+                                }
+                                $total_kg += $row->jumlah_kg;
+                                ?>
+                                </td>
+                                <td><?php echo number_format($row->jumlah_kg,2);?></td>
+                                <td>
+                                  <?php 
+                                    echo $row->jumlah_rol;
+                                     $total_rol += $row->jumlah_rol;
+                                    ?>
+                                  </td>
                                 <td><?php echo $row->nm_customer; ?></td>
                                 <td><?php echo $row->no_wo; ?></td>
                                 <td>
-                                 <a href="<?php echo base_url('Penerimaan_kainjadi/cetakLabelPartai/'.$row->kd_partai.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
+                                 <a href="<?php echo base_url('Penerimaan_kainjadi/cetakLabelPartai/'.$row->no_partai.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
                                 <button class="btn btn-circle btn-mn btn-secondary" value="primary">
                                 <span class="fa fa-barcode"></span>
                               </button>
                             </a>
                             </td>
+
+                          <?php if($this->session->userdata('level') != 'operator'){ ?>
+                              <td>
+                                 <a href="<?php echo base_url('Penerimaan_kainjadi/editPerNoPartaiTampil/'.$row->no_partai.''); ?>" title="edit kg">
+                                <button class="btn btn-circle btn-mn btn-warning" value="primary">
+                                <span class="fa fa-edit"></span>
+                              </button>
+                            </a>
+                            </td>
+                          <?php } ?>
                            </tr>
                         <?php $no++;
                         }
                       }
                       ?>
+                          <tr>
+                            <td colspan="5" align="center"><b>Total</b></td> 
+                            <td><b><?php echo number_format($total_kg,2);?></b></td> 
+                            <td><b><?php echo number_format($total_rol,0);?></b></td> 
+                            <td><b><?php ?></b></td>  
+                          </tr>
                         </table>
                         
                       </div>
@@ -177,6 +220,7 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->

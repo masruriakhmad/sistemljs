@@ -111,7 +111,13 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0" class="col-sm-5">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                          <th >List Partai</th>
+                          <th class="col-md-1">Nomor Gulung</th>
+                          <th >Nama Kain</th>
+                          <th >Gramasi</th>
+                          <th >Kg</th>
+                          <th >No. WO</th>
+                          <th >Customer</th>
+                          <th class="col-md-1">Hapus</th>
                         </tr>
                       </thead>
                       <?php
@@ -123,6 +129,18 @@
                           ?>
                            <tr>
                             <td><?php echo $row->no_tr_grey; ?></td>
+                            <td><?php echo $row->nm_kain; ?></td>
+                            <td><?php echo $row->gramasi; ?></td>
+                            <td><?php echo $row->kg_grey; ?></td>
+                            <td><?php echo $row->no_wo; ?></td>
+                            <td><?php echo $row->nm_customer; ?></td>
+                            <td>
+                               <a href="<?php echo base_url('Partai/deleteListKirimGreyPerGulung/'.$row->no_tr_grey.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus transaksi">
+                             <!--  <button class=" btn btn-circle btn-mn btn-danger" value="primary"> -->
+                               <span class="fa fa-trash"></span> Hapus
+                              <!--</button>-->
+                             </a>
+                            </td>
                            </tr>
                         <?php $no++;
                         }
@@ -151,9 +169,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable();

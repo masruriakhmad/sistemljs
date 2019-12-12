@@ -99,15 +99,15 @@
 
 
 
-              <div class="col-md-15 top-20 padding-0">
-                <div class="col-md-11">
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
                   <div class="panel">
                   <?php echo $this->session->flashdata('notif');?>
                   <?php echo $this->session->flashdata('notifhapus');?>
                   <?php echo $this->session->flashdata('notifedit');?>
 
                       <!-- start: delete-->
-                   <div class="row clear_fix"><div class="col-md-15" id="respose"></div></div>
+                   <div class="row clear_fix"><div class="col-md-12" id="respose"></div></div>
                    <!-- responsiv delete -->
 
                     <div class="panel-heading"><h3>Data Penerimaan Benang</h3></div>
@@ -137,16 +137,16 @@
 
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
-                        <tr>
-                       
-                          <th class="col-sm-2">No. Tr. Benang</th>
+                        <tr>                       
+                          <th class="col-sm-1">No.Penerimaan</th>
                           <th class="col-sm-2">Tanggal</th>
-                          <th class="col-sm-1">Nama Benang</th>
-                          <th class="col-sm-2">Nama Vendor</th>
-                          <th class="col-sm-1">Nama Gudang</th>
-                          <th class="col-md-2">Nama User</th>
-                          <th class="col-sm-1">Age</th>
+                          <th class="col-sm-2">Jenis Benang</th>
+                          <th class="col-sm-3">Vendor</th>
+                          <th class="col-sm-1">Gudang</th>
+                          <th class="col-sm-1">Jumlah (Bale)</th>
                           <th class="col-sm-2">Keterangan</th>
+                          <th class="col-md-1">User</th>
+                          <th class="col-sm-1">Cetak</th>
                           <th class="col-sm-1">Batalkan</th>
                         </tr>
                       </thead>
@@ -163,9 +163,16 @@
                             <td><?php echo $row->jenis_benang; ?></td>
                             <td><?php echo $row->nm_vendor; ?></td>
                             <td><?php echo $row->nm_gudang; ?></td>
-                            <td><?php echo $row->nm_user; ?></td>
-                            <td><?php echo $row->jumlah; ?></td>
+                            <td><?php echo number_format($row->jumlah,2); ?></td>
                             <td><?php echo $row->ket; ?></td>
+                            <td><?php echo $row->nm_user; ?></td>
+                              <td>
+                            <a href="<?php echo base_url('Penerimaan_benang/cetakProses/'.$row->no_tr_benang.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
+                               <button class="btn btn-circle btn-mn btn-warning" value="primary">
+                                <span class="fa fa-print"></span>
+                              </button>
+                            </a>
+                            </td>
 
                             <td>
                               <!--<a href="<?php echo base_url('Penerimaan_benang/batalProses/'.$row->no_tr_benang.''); ?>" data-toogle="tooltip" title="Edit">
@@ -209,13 +216,13 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#datatables-example').DataTable({
-       "order":[1,"DESC"]
+   $(document).ready(function(){
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
     });
   });
 
@@ -274,6 +281,7 @@
                 }
             });
 </script>
+<!--
 <script type="text/javascript">
    $(document).ready(function () {
                 $('.tgl_awal').datepicker({
@@ -288,7 +296,7 @@
                     autoclose:true
                 });
             });
-</script>
+</script>-->
  
 <!-- end: Javascript -->
 </body>

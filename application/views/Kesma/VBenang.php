@@ -57,7 +57,7 @@
     var href = $(this).attr('href');
     if (!$('#dataConfirmModal').length) {
       $('body').append(
-        '<div id="dataConfirmModal" class="modal" style="margin-top: 270px; margin-left: 500px; margin-right: 500px; margin-bottom: 270px; background: white;" role="dialog" aria-hidden=""><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h5 id="dataConfirmLabel">Konfirmasi</h5></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Tidak</button><a class="btn btn-primary" id="dataConfirmOK">Ya</a></div></div>');
+        '<div id="dataConfirmModal" class="modal col-sm-3" style="background: white;" role="dialog" aria-hidden=""><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h5 id="dataConfirmLabel">Konfirmasi</h5></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Tidak</button><a class="btn btn-primary" id="dataConfirmOK">Ya</a></div></div>');
     } 
     $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
     $('#dataConfirmOK').attr('href', href);
@@ -87,21 +87,26 @@
                     </div>
                   </div>
               </div>
+              
               <div class="col-md-12" style="margin-top:5px;">
                 <div class="col-md-1">
                   <a href="<?php echo base_url('Benang/create'); ?>">
-                  <button class="btn ripple-infinite btn-gradient btn-info">
+                  <button class="btn ripple-infinite btn-gradient btn-success">
                     <div>
                     <span>Isi Data</span>
                     </div>
                   </button>
                   </a>
                 </div>
+                 <?php 
+              if($this->session->userdata('level')=='webmaster'){
+              ?>
                 <div class="col-md-1">
                 <form action="<?php echo base_url('Benang/export'); ?>" id="export_form" onSubmit="return validasi()"autocomplete="on" method="POST">
                   <input align="center" type="submit" id="import" name="import" value="Export Excel" class="btn btn-success" />
                 </form>
               </div>
+             
                <div class="col-md-4">
                 <form action="<?php echo base_url('Benang/import'); ?>" id="import_form" onSubmit="return validasi()"autocomplete="on" method="POST">
                   <div class="col-md-4">
@@ -114,7 +119,7 @@
 
                 </form>
               </div>
-                
+                <?php } ?>
               </div>
               
           
@@ -135,9 +140,10 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                          <th >Kode Benang</th>
-                          <th >Nama Benang</th>
-                          <th >Edit</th>                        
+                          <th class="col-md-1"> No.</th>
+                          <th class="col-md-1">Kode Benang</th>
+                          <th>Nama Benang</th>
+                          <th class="col-md-1">Edit</th>                        
                         </tr>
                       </thead>
                       <?php
@@ -148,6 +154,7 @@
                           {
                           ?>
                            <tr>
+                             <td><?php echo $no; ?></td>
                             <td><?php echo $row->kd_jenis; ?></td>
                             <td><?php echo $row->jenis_benang; ?></td>
                             <td>
@@ -191,9 +198,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable();

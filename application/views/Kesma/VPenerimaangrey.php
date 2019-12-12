@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
   <meta charset="utf-8">
   <meta name="description" content="Miminium Admin Template v.1">
   <meta name="author" content="Isna Nur Azis">
@@ -57,7 +56,7 @@
     var href = $(this).attr('href');
     if (!$('#dataConfirmModal').length) {
       $('body').append(
-        '<div id="dataConfirmModal" class="modal" style="margin-top: 270px; margin-left: 500px; margin-right: 500px; margin-bottom: 270px; background: white;" role="dialog" aria-hidden=""><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h5 id="dataConfirmLabel">Konfirmasi</h5></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Tidak</button><a class="btn btn-primary" id="dataConfirmOK">Ya</a></div></div>');
+        '<div id="dataConfirmModal" class="modal col-sm-3" style="background: white;" role="dialog" aria-hidden=""><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button><h5 id="dataConfirmLabel">Konfirmasi</h5></div><div class="modal-body"></div><div class="modal-footer"><button class="btn" data-dismiss="modal" aria-hidden="true">Tidak</button><a class="btn btn-primary" id="dataConfirmOK">Ya</a></div></div>');
     } 
     $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
     $('#dataConfirmOK').attr('href', href);
@@ -87,6 +86,46 @@
                     </div>
                   </div>
               </div>
+
+                <div class="col-md-12" style="margin-top:5px;">              
+                 <div class="col-md-12">
+                  <a href="<?php echo base_url('Penerimaan_grey/createNew'); ?>">
+                  <button class="btn ripple-infinite btn-gradient btn-info">
+                    <div>
+                    <span>Isi Data</span>
+                    </div>
+                  </button>
+                  </a>
+                  <i><b>- Untuk bypass Penerimaan Greige</b></i>
+                </div>
+              </div>
+             
+
+
+               <?php 
+              if($this->session->userdata('level')=='webmaster'){
+              ?>
+                <div class="col-md-12" style="margin-top:5px;">
+
+                <div class="col-md-2">
+                <form action="<?php echo base_url('Penerimaan_grey/export'); ?>" id="export_form" onSubmit="return validasi()"autocomplete="on" method="POST">
+                  <input align="left" type="submit" id="export" name="export" value="Export Excel" class="btn btn-success" />
+                </form>
+              </div>
+               <div class="col-md-4">
+                <form action="<?php echo base_url('Penerimaan_grey/import'); ?>" id="import_form" onSubmit="return validasi()"autocomplete="on" method="POST">
+                  <div class="col-md-4">
+                  <input type="submit" id="import" name="import" value="Import Excel" class="btn btn-warning" />
+                </div>
+                
+                  <div class="col-md-6">
+                  <input type="file" name="file" id="file" required accept=".xls, .xlsx" />
+                </div>
+                </form>
+              </div>
+                
+              </div>
+            <?php } ?>
               <div class="col-md-12 top-20 padding-0">
                 <div class="col-md-12">
                   <div class="panel">
@@ -98,27 +137,32 @@
                    <div class="row clear_fix"><div class="col-md-12" id="respose"></div></div>
                    <!-- responsiv delete -->
 
-                    <div class="panel-heading"><h3>Data Penerimaan Grey</h3></div>
+                    <div class="panel-heading"><h3>Data Penerimaan Greige <span class="right"><h4><?php echo $tgla." s/d ".$tgl;?><h$></span></h3>
+
+                    </div>
                     <div class="panel-body">
                       <div class="table-responsive">
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
                        
-                          <th class="col-md-1">Tanggal</th>
-                          <th class="col-md-1">No. Tr. Grey</th>
-                          <th class="col-md-1">No. Mesin</th>
-                          <th class="col-md-2">Nama Kain</th>
-                          <th class="col-md-1">Gramasi</th>
-                          <th class="col-md-1">Kg Grey</th>
-                          <th class="col-md-1">Operator</th>
-                          <th class="col-md-1">Nama Gudang</th>
-                          <th class="col-md-1">Nama Customer</th>
-                          <th class="col-md-1">No WO</th>
-                          <th class="col-md-2">Ket</th>
-                          <th class="col-md-2"> Batalkan </th>
-                          
-                          
+                          <th >Tanggal</th>
+                          <th >No. Gulung</th>
+                          <th >SKU</th>
+                          <th >Mesin</th>
+                          <th >Kain</th>
+                          <th >Gramasi</th>
+                          <th >Kg</th>
+                          <th >Op</th>
+                          <th >Garis</th>
+                          <th >Lubang</th>
+                          <th >Ket</th>
+                          <th >WO</th>
+                          <th >Customer</th>
+                          <th >User</th>
+                          <th >Edit</th>
+                          <th >Batalkan</th>
+
                      <!-- <th class="col-md-2">Kode User</th> -->
                           
                         </tr>
@@ -133,25 +177,31 @@
                            <tr>
                             <td><?php echo $row->tgl; ?></td>
                             <td><?php echo $row->no_tr_grey; ?></td>
+                            <td><?php echo $row->sku; ?></td>
                             <td><?php echo $row->no_mesin; ?></td>
                             <td><?php echo $row->nm_kain; ?></td>
                             <td><?php echo $row->gramasi; ?></td>
                             <td><?php echo $row->kg_grey; ?></td>
                             <td><?php echo $row->operator; ?></td>
-                            <td><?php echo $row->nm_gudang; ?></td>
-                            <td><?php echo $row->nm_customer; ?></td>
-                            <td><?php echo $row->no_wo; ?></td>
+                            <td><?php echo $row->bs_garis; ?></td>
+                            <td><?php echo $row->bs_lubang; ?></td>
                             <td><?php echo $row->ket; ?></td>
-                      <!-- <td><?php echo $row->kd_user; ?></td> -->
+                            <td><?php echo $row->no_wo; ?></td>
+                            <td><?php echo $row->nm_customer; ?></td>
+                            <td><?php echo $row->nm_user; ?></td>
+                            <td>
+                             <a href="<?php echo base_url('Penerimaan_grey/edit/'.$row->no_tr_grey.''); ?>" data-confirm="Ubah Penenerimaan grey ini?" data-toogle="tooltip" title="edit transaksi">
+                               <button class="btn btn-circle btn-mn btn-success" value="primary">
+                                <span class="fa fa-edit"></span>
+                              </button>
+                            </a>
+                            </td>
                             <td>
                              <a href="<?php echo base_url('Penerimaan_grey/batalProses/'.$row->no_tr_grey.''); ?>" data-confirm="Batalkan Penenerimaan grey ini?" data-toogle="tooltip" title="Hapus transaksi">
                                <button class="btn btn-circle btn-mn btn-danger" value="primary">
                                 <span class="fa fa-trash"></span>
                               </button>
                             </a>
-                          
-                           
-                           
                             </td>
                           </tr>
                           <?php $no++;
@@ -181,17 +231,15 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#datatables-example').DataTable({
+   $(document).ready(function(){
+    $('#datatables-example').DataTable(
+    {
       "order":[1,"DESC"]
     });
-
   });
-
    $(document).ready(function() {
                 resetcheckbox();
                 $('#selecctall').click(function(event) {  //on click
@@ -247,6 +295,45 @@
                 }
             });
 </script>
+
+<script>
+
+$(document).ready(function(){ 
+
+  //kirim value excel ke import
+  $('#import_form').on('submit', function(event){
+
+    event.preventDefault();
+
+    $.ajax({
+
+      url:"<?php echo base_url() ?>Penerimaan_grey/import",
+
+      method:"POST",
+
+      data:new FormData(this),
+
+      contentType:false,
+
+      cache:false,
+
+      processData:false,
+
+      success:function(data){
+
+          $('#file').val('');
+          alert('Import dari Excel Sukses');
+      
+      }
+
+    })
+
+  });
+
+});
+
+</script>
+
 <!-- end: Javascript -->
 </body>
 </html>

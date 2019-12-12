@@ -7,7 +7,7 @@
   <meta name="author" content="Isna Nur Azis">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Penerimaan Benang</title>
+  <title>Data Pengiriman Kainjadi</title>
 
 
   <!-- start: Css -->
@@ -83,7 +83,7 @@
                   <div class="panel-body">
                     <div class="col-md-15">
                         <h3 class="animated fadeInDown">
-                          Tabel  <span class="fa-angle-right fa"></span> Data Penerimaan kain Jadi
+                          Tabel  <span class="fa-angle-right fa"></span> Data Pengiriman kain Jadi
                         </h3>
                     </div>
                   </div>
@@ -108,24 +108,23 @@
                    <div class="row clear_fix"><div class="col-md-12" id="respose"></div></div>
                    <!-- responsiv delete -->
 
-                    <div class="panel-heading"><h3>Data Penerimaan Kain Jadi</h3></div>
+                    <div class="panel-heading"><h3>Data Pengiriman Kain Jadi</h3></div>
                     <div class="panel-body">
                       <div class="table-responsive">
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
                        
-                          <th class="col-sm-2">No.Transaksi</th>
+                          <th class="col-sm-1">No.Transaksi</th>
                           <th class="col-sm-2">Tanggal</th>
-                          <th class="col-sm-1">Nama Subcon</th>
-                          <th class="col-sm-2">Nomer Mobil</th>
+                          <th class="col-sm-2">Nama Customer</th>
+                          <th class="col-sm-1">Nomer Mobil</th>
                           <th class="col-sm-1">Nama Sopir</th>
                           <th class="col-sm-1">Jumlah Rol</th>
                           <th class="col-sm-2">Keterangan</th>
-                          <th class="col-md-1">User</th>
                           <th class="col-sm-1">Cetak</th>
                           <th class="col-sm-1">Detail</th>
-                          <th class="col-sm-1">Barcode</th>
+                          <th class="col-sm-1">Batalkan</th>
                         </tr>
                       </thead>
                       <?php
@@ -137,36 +136,35 @@
                           ?>
                            <tr>
                             <td>
-                              <a href="<?php echo base_url('Penerimaan_kainjadi/detailPenerimaanKainjadi/'.$row->no_tr_kainjadi.''); ?>" >
-                              <?php echo $row->no_tr_kainjadi; ?>
+                              <a href="<?php echo base_url('Pengiriman_kainjadi/detailPengirimanKainjadi/'.$row->no_jual.''); ?>" >
+                              <?php echo $row->no_jual; ?>
                               </a>
                             </td>
                             
                             <td><?php echo $row->tgl; ?></td> 
-                            <td><?php echo $row->nm_subcon; ?></td>
+                            <td><?php echo $row->nm_customer; ?></td>
                             <td><?php echo $row->no_mobil; ?></td>
                             <td><?php echo $row->supir; ?></td>
                             <td><?php echo $row->jumlah; ?></td>
                             <td><?php echo $row->ket; ?></td>
-                            <td><?php echo $row->nm_user; ?></td>
                             <td>
-                            <a href="<?php echo base_url('Penerimaan_kainjadi/cetakProses/'.$row->no_tr_kainjadi.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
+                            <a href="<?php echo base_url('Pengiriman_kainjadi/cetakProses/'.$row->no_jual.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
                                <button class="btn btn-circle btn-mn btn-warning" value="primary">
                                 <span class="fa fa-print"></span>
                               </button>
                             </a>
                             </td>
                               <td>
-                            <a href="<?php echo base_url('Penerimaan_kainjadi/cetakDetailProses/'.$row->no_tr_kainjadi.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
+                            <a href="<?php echo base_url('Pengiriman_kainjadi/cetakDetailProses/'.$row->no_jual.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
                                <button class="btn btn-circle btn-mn btn-success" value="primary">
                                 <span class="fa fa-print"></span>
                               </button>
                             </a>
                             </td>
-                               <td>
-                            <a href="<?php echo base_url('Penerimaan_kainjadi/cetakLabelMasal/'.$row->no_tr_kainjadi.''); ?>" data-confirm="Cetak Penerimaan ini?" data-toogle="tooltip" title="cetak transaksi">
-                               <button class="btn btn-circle btn-mn btn-secondary" value="primary">
-                                <span class="fa fa-barcode"></span>
+                            <td>
+                            <a href="<?php echo base_url('Pengiriman_kainjadi/batalProses/'.$row->no_jual.''); ?>" data-confirm="Batalkan Pengiriman ini?" data-toogle="tooltip" title="batalkan transaksi">
+                               <button class="btn btn-circle btn-mn btn-danger" value="primary">
+                                <span class="fa fa-trash"></span>
                               </button>
                             </a>
                             </td>
@@ -198,14 +196,15 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
-  $(document).ready(function(){
-    $('#datatables-example').DataTable();
+ $(document).ready(function(){
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
+    });
   });
-
    $(document).ready(function() {
                 resetcheckbox();
                 $('#selecctall').click(function(event) {  //on click

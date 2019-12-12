@@ -53,7 +53,6 @@
     }
   </style>
 </head>
-
 <body id="page">
             <div id="page">
                       <table border="0" align="left" width="425.4681381813px" height="250.2851311513px"  cellpadding="10">
@@ -66,7 +65,7 @@
                           ?>
                           <tr>
                           <th align="left" width="283.4681381813px" height="195.2851311513px">
-                            <?php echo $row->kd_customer."<br>".$row->nm_kain."  |  ".$row->kg_grey."  Kg"; ?><br>
+                            <?php echo $row->kd_customer."  |  ".$row->sku."<br>".$row->nm_kain."  |  ".$row->kg_fin."  Kg"."  |  ".$row->no_partai; ?><br>
                              <?php echo $row->nm_warna." -- ".$row->setting; ?><br>
                             <img src="<?php  echo base_url('Penerimaan_kainjadi/barcode/'.$row->no_tr_grey);?>" width="400.4681381813px" height="100.591503515px">
                           </th>                       
@@ -75,13 +74,7 @@
                         }
                       }
                       ?>
-                        </table>
-                        
+                        </table>             
                       </div>
-                 
-      
-
-
-        
 </body>
 </html>

@@ -88,13 +88,23 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-6" style="margin-top:5px;">
+              <div class="col-md-1" style="margin-top:5px;">
                   <a href="<?php echo base_url('Penerimaan_kainjadi/create'); ?>">
                   <button class="btn ripple-infinite btn-gradient btn-info">
                     <div>
                     <span>Isi Data</span>
                     </div>
                   </button>
+                  </a>
+              </div>
+              <div class="col-md-6" style="margin-top:5px;">
+                  <a href="<?php echo base_url('Penerimaan_kainjadi/createNew'); ?>">
+                  <button class="btn ripple-infinite btn-gradient btn-warning">
+                    <div>
+                    <span>Isi Data Baru</span>
+                    </div>
+                  </button>
+                   <i>- Untuk Barang yang belum masuk sistem </i>
                   </a>
               </div>
               <div class="col-md-12 top-20 padding-0">
@@ -206,12 +216,14 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#datatables-example').DataTable();
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
+    });
   });
 
    $(document).ready(function() {

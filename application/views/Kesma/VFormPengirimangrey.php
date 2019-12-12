@@ -118,11 +118,15 @@
                         <tr>
                           <th class="col-md-1">Kode Partai</th>
                           <th >Nama Kain</th>
+                          <th >Jumlah Rol</th>
+                          <th >Kg</th>
                           <th class="col-md-1">Hapus</th>                        
                         </tr>
                       </thead>
                       <?php
                         $no = 1;
+                        $total=0;
+                        $total_kg=0;
                         if($result4->num_rows()>0)
                         {
                           foreach ($result4->result() as $row)
@@ -136,7 +140,17 @@
                             </td>
                             <td><?php echo $row->nm_kain.'&nbspGramasi&nbsp'.$row->gramasi; ?></td>
                             <td>
-                             <a href="<?php echo base_url('Partai/deleteByKd_partai/'.$row->kd_partai.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus transaksi">
+                              <?php echo $row->jumlah_rol; 
+                                    $total +=$row->jumlah_rol;
+                              ?>
+                            </td>
+                            <td>
+                              <?php echo number_format($row->jumlah_kg_grey,2); 
+                                    $total_kg +=$row->jumlah_kg_grey;
+                              ?>
+                            </td>
+                            <td>
+                             <a href="<?php echo base_url('Partai/deleteListKirimGrey/'.$row->kd_partai.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus transaksi">
                              <!--  <button class=" btn btn-circle btn-mn btn-danger" value="primary"> -->
                                <span class="fa fa-trash"></span> Hapus
                               <!--</button>-->
@@ -150,6 +164,12 @@
                         }
                       }
                       ?>
+                         <tr>
+                          <th colspan="2"><B>Total</B></th>
+                          <th ><?php echo $total; ?></th>
+                          <th ><?php echo number_format($total_kg,2); ?></th>
+                          <th ></th>
+                          </tr>
                         </table>
                         
                       </div>
@@ -274,26 +294,18 @@
               </form>
 
 
-  <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
-  <script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
-  <script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
-  <script src="<?php echo base_url('view/assets/js/bootstrap.min.js')?>"></script>
-  <!-- plugins -->
-  
-  <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/moment.min.js')?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
-  <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+<!-- plugins -->
+
+
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
   <!--Load JavaScript File-->
   <script type="text/javascript">
     $(document).ready(function(){
@@ -324,7 +336,7 @@
         beforeSend: function(e) {
           if(e && e.overrideMimeType) {
             e.overrideMimeType("application/json;charset=UTF-8");
-          }
+          } 
         },
         success: function(response){ // Ketika proses pengiriman berhasil
           $("#loading").hide(); // Sembunyikan loadingnya

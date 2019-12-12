@@ -87,6 +87,7 @@
                     </div>
                   </div>
               </div>
+              <!--
               <div class="col-md-6" style="margin-top:5px;">
                   <a href="<?php echo base_url('Penerimaan_benang/create'); ?>">
                   <button class="btn ripple-infinite btn-gradient btn-info">
@@ -96,6 +97,7 @@
                   </button>
                   </a>
               </div>
+            -->
               <div class="col-md-12 top-20 padding-0">
                 <div class="col-md-12">
                   <div class="panel">
@@ -113,15 +115,13 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                       
-                          <th class="col-md-2">Kode Benang</th>
-                     <!-- <th class="col-md-2">Tanggal</th> -->
-                          <th class="col-md-2">Nama Benang</th>
-                          <th class="col-md-2">Nama Vendor</th>
-                          <th class="col-md-1">Nama Gudang</th>
-                     <!-- <th class="col-md-2">Kode User</th> -->
+                          <th class="col-md-1">No</th>
+                          <th class="col-md-1">Kode Benang</th>
+                          <th >Nama Benang</th>
+                          <th >Nama Vendor</th>
+                          <th >Nama Gudang</th>
                           <th class="col-md-2">Stock (Kg)</th>
-                          <th class="col-md-2">Bale</th> 
+                          <th class="col-md-1">Bale</th> 
                      <!--     <th class="col-md-2">Keterangan</th> -->
                       <!--    <th class="col-md-1">Aksi</th> -->
                         </tr>
@@ -134,14 +134,15 @@
                           {
                           ?>
                            <tr>
+                            <td><?php echo $no; ?></td>
                             <td><?php echo $row->kd_benang; ?></td>
                        <!-- <td><?php echo $row->tgl; ?></td> -->
                             <td><?php echo $row->jenis_benang; ?></td>
                             <td><?php echo $row->nm_vendor; ?></td>
                             <td><?php echo $row->nm_gudang; ?></td>
                        <!-- <td><?php echo $row->kd_user; ?></td> -->
-                            <td><?php echo number_format($row->stock); ?></td>
-                            <td><?php echo round($row->stock/181.44); ?></td>
+                            <td><?php echo number_format($row->stock,4); ?></td>
+                            <td><?php echo round($row->stock/181.44,2); ?></td>
                         <!--<td><?php echo $row->ket; ?></td> -->
                           <!--
                             <td>
@@ -188,14 +189,15 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#datatables-example').DataTable();
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
+    });
   });
-
    $(document).ready(function() {
                 resetcheckbox();
                 $('#selecctall').click(function(event) {  //on click

@@ -177,6 +177,7 @@
                           <th  class="col-md-1">Gramasi</th>
                           <th  class="col-md-1">Setting</th>
                           <th  class="col-md-2">Jumlah Rol</th>
+                          <th  class="col-md-2">Jumlah Kg</th>
                           <!--
                           <th >Batalkan</th>  
                           -->                      
@@ -185,7 +186,8 @@
                       <?php
                         $no = 1;
                         $total1=0;
-                        if($maklun->num_rows()>0)
+                        $total_kg_grey=0;
+                        if($grey->num_rows()>0)
                         {
                           foreach ($grey->result() as $x)
                           {
@@ -198,7 +200,13 @@
                             <td><?php echo $x->setting; ?></td>
                             <td><?php echo $x->jml; 
                               $total1 +=$x->jml;
-                            ?></td>    
+                            ?>
+                            </td>
+                            <td>
+                              <?php echo number_format($x->jml_kg_grey,2); 
+                              $total_kg_grey +=$x->jml_kg_grey;
+                            ?>
+                            </td>    
                           </tr>
                           <?php $no++;
                         }
@@ -208,6 +216,7 @@
                           <tr>
                             <td align="center" colspan="5">Total</td>
                             <td><?php echo $total1; ?></td>
+                            <td><?php echo number_format($total_kg_grey,2); ?></td>
                           </tr>
                         </tbody>
                         </table>
@@ -273,6 +282,7 @@
                           <th  class="col-md-1">Gramasi</th>
                           <th  class="col-md-1">Setting</th>
                           <th  class="col-md-2">Jumlah Rol</th>
+                          <th  class="col-md-2">Jumlah Kg</th>
                           <!--
                           <th >Batalkan</th>  
                           -->                      
@@ -281,6 +291,7 @@
                       <?php
                         $no = 1;
                         $total3=0;
+                        $total_kg_fin=0;
                         if($kainjadi->num_rows()>0)
                         {
                           foreach ($kainjadi->result() as $z)
@@ -289,12 +300,18 @@
                            <tr>
                             <td><?php echo $no ; ?></td>
                             <td><?php echo $z->nm_kain;?></td>
-                            <td><?php echo $z->kd_warna; ?></td>
+                            <td><?php echo $z->nm_warna; ?></td>
                             <td><?php echo $z->gramasi; ?></td>
                             <td><?php echo $z->setting; ?></td>
                             <td><?php echo $z->jml; 
                               $total3 +=$z->jml;
-                            ?></td>    
+                            ?>
+                            </td> 
+                            <td>
+                              <?php echo number_format($z->jml_kg_fin,2); 
+                              $total_kg_fin +=$z->jml_kg_fin;
+                            ?>
+                            </td>   
                           </tr>
                           <?php $no++;
                         }
@@ -304,6 +321,7 @@
                           <tr>
                             <td align="center" colspan="5">Total</td>
                             <td><?php echo $total3; ?></td>
+                            <td><?php echo number_format($total_kg_fin,2); ?></td>
                           </tr>
                         </tbody>
                         </table>
@@ -312,6 +330,18 @@
 
                     <div class="col-md-12">
                     <h3 class="animated fadeInDown">Total Proses : <?php echo $all=$total1+$total2+$total3; ?> </h3>
+                  </div>
+                  <div class="col-md-12">
+                    <h3 class="animated fadeInDown">Prosentase Perubahan Kg : 
+                      <?php
+                      if($total_kg_grey !=0 ){
+                        $hasil = ($total_kg_fin-$total_kg_grey)/$total_kg_grey;
+                        echo round($hasil* 100,2)."%";
+                      } 
+                        echo "0 %";; 
+
+                      ?> 
+                    </h3>
                   </div>
 
                 </div>
@@ -333,9 +363,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable();
@@ -427,7 +456,7 @@
       });
     });
   });
-  </script>
+  </script>-->
 <!-- end: Javascript -->
 </body>
 </html>

@@ -1,42 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-  <meta charset="utf-8">
-  <meta name="description" content="Miminium Admin Template v.1">
-  <meta name="author" content="Isna Nur Azis">
-  <meta name="keyword" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Pengiriman Grey</title>
+<style >
+@page { 
+  margin: 20px 20px 20px 20px; 
+  font-family: "Helvetica";
+  font-size: 12px; 
+}
+body { 
+  font-family:"Helvetica";
+  font-size: 12px;  
+}
+</style>
 
-  <!-- start: Css -->
-  <link href="<?php echo base_url ('assets/css/bootstrap.min.css')?>"  rel="stylesheet" type="text/css">
-
-  <!-- plugins -->
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/plugins/font-awesome.min.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/plugins/datatables.bootstrap.min.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?php echo base_url('assets/css/plugins/animate.min.css'); ?>">
-  <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
-  <!-- end: Css -->
-
-  <link rel="shortcut icon" href="<?php echo base_url('assets/img/logomi.png'); ?>">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
 </head>
 
 <body id="" class="dashboard" >
  <div class="col-md-12">      
                
-                  <div class="header col-md-12">
-                    <br>
-                    <p>
-                      <h3>CV. Langgeng Jaya Santoso</h3>
+                   <b font-size="11">CV. Langgeng Jaya Santoso</b><br>
                       Jalan Soekarno Hatta No. 16 Magelang
-                      _________________________________________________________________________________________
-                      <p align="center" font-size="14"> <b>SURAT JALAN (MASUK)</b></p>
+                      <hr>
+                      <p align="center" font-size="14"> <b>Bukti Penerimaan Benang</b></p>
                     </p>
-                   
-                  </div>
 
                   <div class="col-md-12" align="right">
                         <b>
@@ -116,7 +103,7 @@
                             </td>
                             <td>
                                <?php 
-                              echo $kg=$row->jumlah*181.44; 
+                              echo number_format($kg=$row->jumlah*181.44,2); 
                               $total_kg += $kg;
                               ?>
 
@@ -129,7 +116,7 @@
                         <tr>
                             <td colspan="2"><b>Total</b></td> 
                             <td><b><?php echo $total_jumlah; ?></b></td>
-                            <td><b><?php echo $total_kg; ?></b></td>
+                            <td><b><?php echo number_format($total_kg,2); ?></b></td>
                           </tr>
                         </table>
                         

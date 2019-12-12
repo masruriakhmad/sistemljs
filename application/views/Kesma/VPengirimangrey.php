@@ -7,7 +7,7 @@
   <meta name="author" content="Isna Nur Azis">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Penerimaan Benang</title>
+  <title>Data Pengiriman Grey</title>
 
   <!-- start: Css -->
   <link href="<?php echo base_url ('assets/css/bootstrap.min.css')?>"  rel="stylesheet" type="text/css">
@@ -87,7 +87,7 @@
                     </div>
                   </div>
               </div>
-              <div class="col-md-6" style="margin-top:5px;">
+              <div class="col-md-1" style="margin-top:5px;">
                   <a href="<?php echo base_url('Pengiriman_grey/create'); ?>">
                   <button class="btn ripple-infinite btn-gradient btn-info">
                     <div>
@@ -96,8 +96,9 @@
                   </button>
                   </a>
               </div>
-              <div class="col-md-15 top-20 padding-0">
-                <div class="col-md-11">
+            
+              <div class="col-md-12 top-20 padding-0">
+                <div class="col-md-12">
                   <div class="panel">
                   <?php echo $this->session->flashdata('notif');?>
                   <?php echo $this->session->flashdata('notifhapus');?>
@@ -122,6 +123,7 @@
                      <!-- <th class="col-md-2">Kode User</th> -->
                           <th class="col-sm-1">Jumlah Rol</th>
                           <th class="col-sm-2">Keterangan</th>
+                          <th class="col-sm-2">User</th>
                           <th class="col-sm-1">Cetak</th>
                           <th class="col-sm-1">Detail</th>
                           <th class="col-sm-1">Batalkan</th>
@@ -146,6 +148,7 @@
                             <td><?php echo $row->nm_supir; ?></td>
                             <td><?php echo $row->jumlah; ?></td>
                             <td><?php echo $row->ket; ?></td>
+                            <td><?php echo $row->nm_user; ?></td>
                             <td>
                             <a href="<?php echo base_url('Pengiriman_grey/cetakProses/'.$row->no_tr_maklun.''); ?>" data-confirm="Cetak Pengiriman ini?" data-toogle="tooltip" title="cetak transaksi">
                                <button class="btn btn-circle btn-mn btn-warning" value="primary">
@@ -180,6 +183,7 @@
                 </div>
               </div>  
               </div>
+
             </div>
 
 
@@ -196,12 +200,76 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#datatables-example').DataTable({
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
+    });
+  });
+
+   $(document).ready(function() {
+                resetcheckbox();
+                $('#selecctall').click(function(event) {  //on click
+                    if (this.checked) { // check select status
+                        $('.checkbox1').each(function() { //loop through each checkbox
+                            this.checked = true;  //select all checkboxes with class "checkbox1"              
+                        });
+                    } else {
+                        $('.checkbox1').each(function() { //loop through each checkbox
+                            this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+                        });
+                    }
+                });
+
+
+                $("#del_all").on('click', function(e) {
+                    e.preventDefault();
+                    var checkValues = $('.checkbox1:checked').map(function()
+                    {
+                        return $(this).val();
+                    }).get();
+                    console.log(checkValues);
+                    
+                    $.each( checkValues, function( i, val ) {
+                        $("#"+val).remove();
+                        });
+//                    return  false;
+                    $.ajax({
+                        url: '<?php echo base_url() ?>Kriteria/delete',
+                        type: 'post',
+                        data: 'ids=' + checkValues
+                    }).done(function(data) {
+                        $("#respose").html(data);
+                        $('#selecctall').attr('checked', false);
+                    });
+                });
+
+                $(".addrecord").click(function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr('href');
+                    $.ajax({
+                        type: 'POST',
+                        url: url
+                    }).done(function() {
+                        window.location.reload();
+                    });
+                });
+                
+                function  resetcheckbox(){
+                $('input:checkbox').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+                   });
+                }
+            });
+</script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#datatables-example1').DataTable(
+    {
       "order":[1,"DESC"]
     });
   });

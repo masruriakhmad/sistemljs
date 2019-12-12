@@ -29,7 +29,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     //set timezone
     <?php date_default_timezone_set('Asia/Jakarta'); ?>
@@ -65,13 +64,13 @@
         var numbers=/^[0-9]+$/;
         
 //        validasi nip tidak boleh kosong (required)
-        if (jumlah==null || jumlah=="")
+        if (jumh==null || jumh=="")
           {
           alert("Jumlah tidak boleh kosong !");
           return false;
           };
 
-        if (!jumlah.match(numbers))
+        if (!jumh.match(numbers))
           {
           alert("Jumlah harus angka  !");
           return false;
@@ -111,7 +110,7 @@
                               <div class="form-group">
                                 <div class="col-sm-3">
                                   <label class="control-label">Nama Benang</label>
-                                  <select name="kd_jenis" id="kd_jenis">
+                                  <select class="selectpicker" data-live-search="true" name="kd_jenis" id="kd_jenis" required>
                                     <option value="">--Pilih--</option>
                                   <?php
                                   foreach ($result1->result() as $row) {
@@ -128,7 +127,7 @@
                               <div class="form-group">
                                 <div class="col-sm-3">
                                   <label class="control-label">Nama Vendor</label>
-                                  <select  name="kd_vendor" id="kd_vendor">
+                                  <select  name="kd_vendor" id="kd_vendor" required>
                                     <option value="">--Pilih--</option>
                                   <?php
                                   foreach ($result2->result() as $row) {
@@ -144,7 +143,7 @@
                               <div class="form-group">
                                 <div class="col-sm-3">
                                   <label class="control-label">Nama Gudang</label>
-                                  <select  name="kd_gudang" id="kd_vendor">
+                                  <select  name="kd_gudang" id="kd_vendor" required>
                                     <option value="G001">GUDANG BENANG</option>
                                   <?php
                                   foreach ($result3->result() as $row) {
@@ -168,7 +167,7 @@
                               <div class="form-group">
                                 <div class="col-sm-3">
                                   <label class="control-label">Jumlah (Bale)</label>
-                                  <input class="form-control" id="jumlah" type="text" name="jumlah" placeholder="Diisi ">
+                                  <input class="form-control" id="jumlh" type="text" name="jumlah" placeholder="Diisi" onkeypress="return isNumberKey(event)" required>
                                 </div>
                               </div>
                               <br/><br/> 
@@ -193,23 +192,23 @@
 
 
 <!-- start: Javascript -->
-<script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/bootstrap.min.js')?>"></script>
-
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/number-validation.js')?>"></script>
 <!-- plugins -->
-<script src="<?php echo base_url('view/assets/js/plugins/moment.min.js')?>"></script>
+
+
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->
+
 <script type="text/javascript">
   $(document).ready(function(){
 

@@ -7,7 +7,7 @@
   <meta name="author" content="Isna Nur Azis">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?php echo $judul;?></title>
+  <title>Data Stock Grey</title>
 
   <!-- start: Css -->
   <link href="<?php echo base_url ('assets/css/bootstrap.min.css')?>"  rel="stylesheet" type="text/css">
@@ -82,7 +82,7 @@
                   <div class="panel-body">
                     <div class="col-md-12">
                         <h3 class="animated fadeInDown">
-                          Tabel  <span class="fa-angle-right fa"></span> <?php echo $judul;?>
+                          Tabel  <span class="fa-angle-right fa"></span>Data Stock Grey
                         </h3>
                     </div>
                   </div>
@@ -100,7 +100,7 @@
             -->
 
               <div class="col-md-12 top-20 padding-0">
-                <div class="col-md-8">
+                <div class="col-md-12">
                   <div class="panel">
                   <?php echo $this->session->flashdata('notif');?>
                   <?php echo $this->session->flashdata('notifhapus');?>
@@ -110,23 +110,24 @@
                    <div class="row clear_fix"><div class="col-md-12" id="respose"></div></div>
                    <!-- responsiv delete -->
 
-                    <div class="panel-heading"><h3><?php echo $judul;?></h3></div>
+                    <div class="panel-heading">Data Stock Grey</div>
                     <div class="panel-body">
                       <div class="table-responsive">
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                          <th>Kode Kain</th>
-                          
+                          <th>Kode Kain</th>                         
                           <th>Nama kain</th>
-                          <th>Nama Gudang</th>
                           <th>Gamasi</th>
                           <th>Jumlah Rol</th>
+                          <th>Subtotal Kg</th>
+                          <th>Gudang</th>
                         </tr>
                       </thead>
                       <?php
                         $no = 1;
                          $total = 0;
+                         $total_kg = 0;
                         if($result->num_rows()>0)
                         {
                           foreach ($result->result() as $row)
@@ -134,8 +135,11 @@
                           ?>
                            <tr>
                             <td><?php echo $row->kd_kain; ?></td>
-                            <td><?php echo $row->nm_kain; ?></td>
-                            <td><?php echo $row->nm_gudang; ?></td>
+                            <td>
+                              <a href="<?php echo base_url('Stock_kain/tampilDetailGrey/'.$row->kd_kain.''); ?>" >
+                              <?php echo $row->nm_kain; ?>
+                            </a>
+                            </td>
                             <td><?php echo $row->list_gramasi; ?></td>
                             <td>
                               <?php echo $row->jumlah_rol; 
@@ -143,17 +147,22 @@
                                $total    += $jml_rol;
                               ?> 
                             </td>
+                            <td>
+                              <?php echo number_format($row->jumlah_kg_grey,2); 
+                               $jml_kg   = $row->jumlah_kg_grey; 
+                               $total_kg    += $jml_kg;
+                              ?> 
+                            </td>
+                            <td><?php echo $row->nm_gudang; ?></td>
                           </tr>
                           <?php $no++;
                         }
                       }
                       ?>
                        <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td><B>Total</B></td>
+                        <td colspan="4" align="center"><B>Total</B></td>
                         <td><b><?php echo $total; ?></b></td>
+                        <td><b><?php echo number_format($total_kg,2); ?></b></td>
                        </tr>
                         </table>
                         
@@ -178,15 +187,14 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#datatables-example').DataTable({
-      "order":[2,"ASC"]
-
-      });
+    $('#datatables-example').DataTable(
+    {
+      "order":[1,"DESC"]
+    });
   });
 
    $(document).ready(function() {

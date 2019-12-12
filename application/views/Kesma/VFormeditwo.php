@@ -20,6 +20,7 @@
   <!-- end: Css -->
 
   <link rel="shortcut icon" href="<?php echo base_url('assets/img/logomi.png'); ?>">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -285,14 +286,18 @@
                 </div>
               </form>
 
-  <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
-  <!-- plugins -->
-  
-  <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+ <script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+<!-- plugins -->
+
+
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
   <!--Load JavaScript File-->
   <script type="text/javascript">
     $(document).ready(function(){

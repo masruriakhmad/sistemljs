@@ -7,7 +7,7 @@
   <meta name="author" content="Isna Nur Azis">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Data Master WO</title>
+  <title>Data WO</title>
 
   <!-- start: Css -->
   <link href="<?php echo base_url ('assets/css/bootstrap.min.css')?>"  rel="stylesheet" type="text/css">
@@ -84,12 +84,12 @@
                   <div class="panel-body">
                     <div class="col-md-12">
                         <h3 class="animated fadeInDown">
-                          Tabel  <span class="fa-angle-right fa"></span> Data Master Benang
+                          Tabel  <span class="fa-angle-right fa"></span> Data Work Order
                         </h3>
                     </div>
                   </div>
               </div>
-              <div class="col-md-6" style="margin-top:5px;">
+              <div class="col-md-1" style="margin-top:5px;">
                   <a href="<?php echo base_url('Wo/create'); ?>">
                   <button class="btn ripple-infinite btn-gradient btn-info">
                     <div>
@@ -98,6 +98,18 @@
                   </button>
                   </a>
               </div>
+              <div class="col-md-1" style="margin-top:5px;">
+                  <button class="btn ripple-infinite btn-gradient btn-warning" data-toggle="modal" data-target="#addNewModal">
+                    <div>
+                    <span>Cetak SPK</span>
+                    </div>
+                  </button>
+              </div>
+              <!--
+              <div class="col-md-2" style="margin-top:5px;">
+                 <input class="submit btn btn-success" type="submit" value="Refresh Status Wo"> 
+              </div>
+            -->
               <div class="col-md-20 top-20 padding-0">
                 <div class="col-md-12">
                   <div class="panel">
@@ -110,6 +122,19 @@
                    <!-- responsiv delete -->
 
                     <div class="panel-heading"><h3>Data WO</h3></div>
+                    
+                    <div class="panel-body" align="center">
+                    <form action="<?php echo base_url('Wo/filterWo'); ?>" id="myform" onSubmit="return validasi()"autocomplete="on" method="POST">
+                          <input class="input-group-sm" type="date" name="tglawal" required>
+                          <input class="input-group-sm" type="date" name="tglakhir"required>
+                          <input type="submit" class="btn btn-xs btn-primary" value="Cari">
+                          <a href="<?php echo base_url('Wo'); ?>">
+                          <button type="button" class="btn btn-xs btn-warning">Reset</button>
+                    </a>  
+                    </form>
+                  </div>
+                   
+
                     <div class="panel-body">
                       <div class="table-responsive">
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
@@ -118,10 +143,10 @@
                           <th  class="col-md-1" >Tanggal</th>
                           <th  class="col-md-1" >No WO</th>
                           <th >Nama Customer</th>
-                          <th  class="col-md-2">Jumlah Rol</th>
-                          <th  class="col-md-2">Status</th>
-                          <th  class="col-md-1">Tutup WO</th>
-                          <th  class="col-md-1">Cetak</th>                        
+                          <th  class="col-md-1">Jumlah Rol</th>
+                          <th  class="col-md-1">User</th>
+                          <th  class="col-md-1">Cetak</th> 
+                          <th  class="col-md-1">Tutup WO</th>                       
                         </tr>
                       </thead>
                       <?php
@@ -134,25 +159,26 @@
                            <tr>
                             <td><?php echo $row->tgl;?></td>
                             <td><a href="<?php echo base_url('Wo/detailWo/'.$row->no_wo.''); ?>">
+                                <input type="hidden" name=no_wo[] value="<?php echo $row->no_wo;?>">
                                 <?php echo $row->no_wo;?>
                                 </a>
                             </td>
                             <td><?php echo $row->nm_customer;?></td>
                             <td><?php echo $row->subtotal_rol;?></td>
-                            <td><?php echo $row->nm_status;?></td>
-                            <td>
-                       
-                             <a href="<?php echo base_url('Wo/closeWO/'.$row->no_wo.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus transaksi">
-                               <button class=" btn btn-circle btn-mn btn-success" value="primary">
-                                <span class="fa fa-check-square-o"></span>
-                              </button>
-                          </a>
-                          
-                            </td>
+                            <td><?php echo $row->nm_user;?></td>
                                <td>
                              <a href="<?php echo base_url('Wo/cetakWo/'.$row->no_wo.''); ?>" data-confirm="anda yakin ingin mencetak Wo ini?" data-toogle="tooltip" title="Cetak transaksi">
                                <button class=" btn btn-circle btn-mn btn-warning" value="primary">
                                 <span class="fa fa-print"></span>
+                              </button>
+                          </a>
+                          
+                            </td>
+                                <td>
+                       
+                             <a href="<?php echo base_url('Wo/closeWO/'.$row->no_wo.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Close WO">
+                               <button class=" btn btn-circle btn-mn btn-danger" value="primary">
+                                <span class="fa fa-times"></span>
                               </button>
                           </a>
                           
@@ -172,29 +198,65 @@
             </div>
 
 
-              <!-- Modal Add New Package-->
+                            <!-- Modal untuk tampil create partai -->
              
-                <div class="modal fade" id="myModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal fade" id="addNewModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                 <form action="<?php echo base_url('Wo/cetakSpk'); ?>" method="post">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Detail Work Order</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Pilih Bulan dan Tahun</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span>
                         </button>
                       </div>
                       <div class="modal-body">
-
-                      <div class="modal-data" id="data_detail">
-
-                      </div>
+                     <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Bulan</label>
+                        <div class="col-sm-10">
+                          <select  class="form-control" name="bulan" id="bulan" required>
+                                    <option value="">--Pilih--</option>
+                                    <option value="1">Januari</option>
+                                    <option value="2">Februari</option>
+                                    <option value="3">Maret</option>
+                                    <option value="4">April</option>
+                                    <option value="5">Mei</option>
+                                    <option value="6">Juni</option>
+                                    <option value="7">Juli</option>
+                                    <option value="8">Agustus</option>
+                                    <option value="9">September</option>
+                                    <option value="10">Oktober</option>
+                                    <option value="11">November</option>
+                                    <option value="12">Desember</option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label class="col-sm-2 col-form-label">Tahun</label>
+                        <div class="col-sm-10">
+                          <select  class="form-control" name="tahun" id="tahun" required>
+                                    <option value="">--Pilih--</option>
+                                   <?php
+                                      $thn_skr = date('Y');
+                                         for ($x = $thn_skr; $x >= 2010; $x--) {
+                                          ?>
+                                          <option value="<?php echo $x ?>"><?php echo $x ?></option>
+                                    <?php
+                                     }
+                                    ?>
+                                  </select>
+                        </div>
+                    </div>
                       <div class="modal-footer">
-                        <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-warning btn-sm">Cetak</button>
                       </div>
                     </div>
+
                   </div>
                 </div>
-           
+              </form>
+              </div>           
 
 <!-- end: content -->
 
@@ -207,12 +269,14 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
-
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 <!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
-    $('#datatables-example').DataTable();
+    $('#datatables-example').DataTable( {
+      "order":[1,"DESC"]
+    });
   });
 
    $(document).ready(function() {

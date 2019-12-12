@@ -29,7 +29,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     //set timezone
     <?php date_default_timezone_set('Asia/Jakarta'); ?>
@@ -124,7 +123,7 @@
                                     <option value="">--Pilih--</option>
                                   <?php
                                   foreach ($result1->result() as $row) {
-                                    echo "<option value='".$row->kd_benang."'>".$row->jenis_benang."&nbsp(&nbsp".$row->nm_vendor." &nbsp&nbsp&nbsp&nbsptersedia&nbsp".number_format($row->stock)." &nbspKg)"."</option>";
+                                    echo "<option value='".$row->kd_benang."'>".$row->jenis_benang."&nbsp(&nbsp".$row->nm_vendor." &nbsp&nbsp&nbsp&nbsptersedia&nbsp".number_format($row->stock,4)." &nbspKg)"."</option>";
                                   }    
                                 ?>
 
@@ -168,8 +167,8 @@
 
                               <div class="form-group">
                                 <div class="col-sm-4">
-                                  <label class="control-label">Kilogram (Kg)</label>
-                                  <input class="form-control" id="kg" type="text" name="kg" placeholder="Diisi">
+                                  <label class="control-label">Kilogram (Kg)/Cones</label>
+                                  <input class="form-control" id="kg" type="text" name="kg" placeholder="Diisi Kg Per Cones">
                                 </div>
                               </div>
                               <br/><br/> <br/><br/>
@@ -193,20 +192,18 @@
 
 
 <!-- start: Javascript -->
-<script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/bootstrap.min.js')?>"></script>
-
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
 <!-- plugins -->
-<script src="<?php echo base_url('view/assets/js/plugins/moment.min.js')?>"></script>
+
+
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->

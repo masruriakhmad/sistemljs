@@ -113,12 +113,13 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
+                          <th class="col-md-1">No</th>
                           <th >Nama Kain</th>
                           <th >Warna</th>
                           <th >Gramasi</th>
-                          <th >setting</th>
-                          <th >Jumlah Rol</th>
-                          <th >Hapus</th>
+                          <th class="col-md-1">setting</th>
+                          <th class="col-md-1">Jumlah Rol</th>
+                          <th class="col-md-1">Hapus</th>
 
                         </tr>
                       </thead>
@@ -131,6 +132,7 @@
                           {
                           ?>
                            <tr>
+                            <td><?php echo $no; ?></td>
                             <td><?php echo $row->nm_kain; ?></td>
                             <td><?php echo $row->warna; ?></td>
                             <td><?php echo $row->gramasi; ?></td>
@@ -158,10 +160,7 @@
                       }
                       ?>
                           <tr>
-                          <th ></th>
-                          <th ></th>
-                          <th ></th>
-                          <th ><B>Total</B></th>
+                          <th colspan="5"><B>Total</B></th>
                           <th ><?php echo $total; ?></th>
                           <th ></th>
                           </tr>
@@ -226,7 +225,7 @@
                       <div class="modal-body">
 
                          <div class="form-group row">
-                        <label class="col-sm-2 col-form-label">Jenis Benang</label>
+                        <label class="col-sm-2 col-form-label">Kain</label>
                         <div class="col-sm-10">
                                    <select  class="form-control" name="kd_kain" id="kd_kain" required>
                                     <option value="">--Pilih--</option>
@@ -275,14 +274,18 @@
                 </div>
               </form>
 
-  <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
-  <script type="text/javascript" src="<?php echo base_url('assets/js/bootstrap-select.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
-  <!-- plugins -->
-  
-  <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
-  <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
+<!-- plugins -->
+
+
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
+<script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
   <!--Load JavaScript File-->
   <script type="text/javascript">
     $(document).ready(function(){

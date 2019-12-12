@@ -6,7 +6,7 @@
   <meta name="author" content="Isna Nur Azis">
   <meta name="keyword" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Form Pengiriman Kain Jadi</title>
+  <title>Data Penerimaan Kain Jadi</title>
 
   <!-- start: Css -->
   
@@ -101,29 +101,16 @@
               </div>
 
               <div class="panel-body">
-                <h1>Pengiriman Kain Jadi</h1>
-              </div>
-               <div class="col-md-12">
-                <?php echo $this->session->flashdata('notif');?>
-                <div class="col-md-12">
-                <form class="form-horizontal" action="<?php echo base_url('Pengiriman_kainjadi/createListJual'); ?>" id="myform" onSubmit="return validasi()"autocomplete="on" method="POST"> 
-                <div class="form-group">
-                  <div class="col-sm-5">
-                    <input class="form-control" type="text" name="no_grey" value="" placeholder="Isikan nomor gulung" required autofocus /><br>
-                    <input class="submit btn btn-sm btn-primary" type="submit" value="Tambah"> 
-                  </div>
-                </div>
-              </form>
-            </div>
+                <h1>Penerimaan Kain Jadi</h1>
               </div>
 
                   <div class="col-md-12 panel-body" style="padding-bottom:30px;">
                       <div class="col-md-12">
-                         <form class="form-horizontal" action="<?php echo base_url('Penerimaan_kainjadi/createProses'); ?>" id="myform" onSubmit="return validasi()"autocomplete="on" method="POST"> 
+                         <form class="form-horizontal" action="<?php echo base_url('Penerimaan_kainjadi/createProsesNew'); ?>" id="myform" onSubmit="return validasi()"autocomplete="on" method="POST"> 
 
                               <div class="form-group">
                                 <div class="col-sm-12">
-                                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addNewModal">Tambahkan Masal</button><br/>
+                                  <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addNewModal">Isi Data</button><br/>
                                 </div>
                               </div>
 
@@ -131,35 +118,27 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                          <th class="col-md-1">Nomor Gulung</th>
+                          <th class="col-md-1">Kode Partai</th>
                           <th >Nama Kain</th>
-                          <th >Gramasi</th>
-                          <th >Setting</th>
-                          <th >Warna</th>
-                          <th >Kg</th>
-                          <th >Nomor Wo</th>
-                          <th >Customer</th>
-                          <th class="col-md-1">Hapus</th>              
+                          <th class="col-md-1">Hapus</th>                        
                         </tr>
                       </thead>
                       <?php
                         $no = 1;
-                        if($result>0)
+                        if($result->num_rows()>0)
                         {
-                          foreach ($result as $row)
+                          foreach ($result->result() as $row)
                           {
                           ?>
-<tr>
-                            <td><?php echo $row->no_tr_grey; ?></td>
-                            <td><?php echo $row->nm_kain;?></td>
-                            <td><?php echo $row->gramasi;?></td>
-                            <td><?php echo $row->setting;?></td>
-                            <td><?php echo $row->nm_warna;?></td>
-                            <td><?php echo $row->kg_fin;?></td>
-                            <td><?php echo $row->no_wo;?></td>
-                            <td><?php echo $row->nm_customer;?></td>
+                           <tr>
                             <td>
-                             <a href="<?php echo base_url('Pengiriman_kainjadi/deleteListJual/'.$row->no_tr_grey.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus transaksi">
+                              <a href="<?php echo base_url('Penerimaan_kainjadi/detailPartaiTerimaNew/'.$row->no_partai.''); ?>" >
+                              <?php echo $row->no_partai; ?>
+                              </a>
+                            </td>
+                            <td><?php echo $row->nm_kain.'&nbspGramasi&nbsp'.$row->gramasi; ?></td>
+                            <td>
+                             <a href="<?php echo base_url('Penerimaan_kainjadi/deleteListTerimaNew/'.$row->no_partai.''); ?>" data-confirm="anda yakin ingin menghapus?" data-toogle="tooltip" title="Hapus list">
                              <!--  <button class=" btn btn-circle btn-mn btn-danger" value="primary"> -->
                                <span class="fa fa-trash"></span> Hapus
                               <!--</button>-->
@@ -178,28 +157,43 @@
                       </div>
 
                       <div class="form-group">
-                                 <div class="col-sm-5">
+                                <div class="col-sm-5">
                                   <label class="control-label">Nomor Transaksi</label>
-                                  <br/>
-                                   <input class="form-control" id="no_mobil" type="text" name="no_mobil" placeholder="Diisi" value="<?php echo $no_jual;?>" readonly>
+                                   <input class="form-control" id="no_tr_kainjadi" type="text" name="no_tr_kainjadi" placeholder="" value="<?php echo $nomor;?>" readonly>
                                 </div>
                             </div>
+                               <div class="form-group">
+                                <div class="col-sm-5">
+                                  <label class="control-label">Subcon</label>
+                                  <br/>
+                                  <select  class="form-control" name="kd_subcon" id="kd_subcon">
+                                    <option value="">--Pilih--</option>
+                                  <?php
+                                  foreach ($subcon->result() as $row) {
+                                    echo "<option value='".$row->kd_subcon."'>".$row->nm_subcon."</option>";
+                                  }    
+                                ?>
+                                <?php
+                                 echo "</select>"; ?>
+
+                                </div>
+                              </div>
                             <div class="form-group">
-                                  <div class="col-sm-5">
+                                <div class="col-sm-5">
                                   <label class="control-label">Nomor Mobil</label>
                                   <br/>
-                                   <input class="form-control" id="no_mobil" type="text" name="no_mobil" placeholder="Diisi" value="" required>
+                                   <input class="form-control" id="no_mobil" type="text" name="no_mobil" placeholder="Diisi" value="" style='text-transform:uppercase'/ required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                 <div class="col-sm-5">
+                                <div class="col-sm-5">
                                   <label class="control-label">Nama Supir</label>
                                   <br/>
                                    <input class="form-control" id="supir" type="text" name="supir" placeholder="Diisi" value="" required>
                                 </div>
                               </div>
                               <div class="form-group">
-                                   <div class="col-sm-5">
+                                <div class="col-sm-5">
                                   <label class="control-label">Keterangan</label>
                                   <br/>
                                      <textarea class="form-control" id="ket" type="text" name="ket" placeholder="Diisi" value=""></textarea>
@@ -208,7 +202,7 @@
 
                       <input class="submit btn btn-primary" type="submit" value="Simpan"> 
                       
-                      <a href="<?php echo base_url('Pengiriman_kainjadi/deleteListJualMasal/'); ?>" data-confirm="anda yakin ingin membatalkan transaksi?" data-toogle="tooltip" title="Hapus transaksi">
+                      <a href="<?php echo base_url('Penerimaan_kainjadi/deleteAllListTerimaNew/'.$nomor.''); ?>" data-confirm="anda yakin ingin membatalkan transaksi?" data-toogle="tooltip" title="Hapus transaksi">
                             <button type="button" class="btn btn-danger">Cancel</button>
                              </a> 
                           
@@ -218,10 +212,12 @@
               </div>
             </div>
 
-              <!-- Modal untuk tampil create partai penerimaan -->
-              
-                <div class="modal fade" id="addNewModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                  <form action="<?php echo base_url('Pengiriman_kainjadi/createListJualMasal'); ?>" method="post">
+
+  
+
+              <!-- Modal untuk tampil create partai -->
+              <div class="modal fade" id="addNewModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <form action="<?php echo base_url('Penerimaan_kainjadi/createListTerimaNew'); ?>" method="post">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -232,53 +228,92 @@
                       </div>
                       <div class="modal-body">
                         <div class="form col-md-12 ">
-                        <div class="form-group row">
-                           <label class="control-label">Nama Subcon</label>
-                                   <select  class="form-control" name="kd_subcon" id="kd_subcon">
-                                    <option value="">--Pilih--</option>
-                                  <?php
-                                  foreach ($subcon->result() as $row) {
-                                    echo "<option value='".$row->kd_subcon."'>".$row->nm_subcon."</option>";
-                                  }    
-                                ?>
-                                <?php
-                                 echo "</select>"; ?>
-                        </div>
-                        <div class="form-group row">
-                          <label class="control-label">Nomor Pengiriman</label>
+                         <div class="form-group row">
+                          <label class="control-label">Kode Partai (New)</label>
                                   <br/>
-                                   <select class="form-control"  name="no_tr_maklun" id="no_tr_maklun" required>
-                                    <option value="">Pilih</option>
-                                  </select>
+                                    <input type="text" class="form-control"  name="no_partai" id="no_partai"  placeholder="Diisi no partai dari maklun" required>
                         </div>
-                        <div class="form-group row">
-                          <label class="control-label">Kode Partai</label>
-                                  <br/>
-                                    <select class="form-control"  name="kd_partai" id="kd_partai"  required>
-                                    <option value="">Pilih</option>
-                                  </select>
-                        </div>
+                    
                         <div class="form-group row">
                            <label class="control-label">Nama Kain</label>
                                   <br/>
-                                    <select class="form-control"  name="kd_kain" id="kd_kain"  required>
-                                    <option value="">Pilih</option>
-                                  </select>
+                                  
+                                    <select  class="selectpicker" data-live-search="true" name="kd_kain" id="kd_kain" >
+                                    <option value="">--Pilih--</option>
+                                  <?php
+                                  foreach ($kain->result() as $row) {
+                                    echo "<option value='".$row->kd_kain."'>".$row->nm_kain."</option>";
+                                  }    
+                                ?>
+                                <?php
+                                 echo "</select>"; ?> 
                         </div>
                         <div class="form-group row">
                           <label class="control-label">Warna</label>
                                   <br/>
-                                    <select class="form-control"  name="kd_warna" id="kd_warna"  required>
+                                  
+                                    <select name="kd_warna" id="kd_warna"  class="form-control" required>
                                     <option value="">Pilih</option>
                                   </select>
+                              
+                        </div>
+
+                        <div class="form-group row">
+                           <label class="control-label">Setting</label>
+                                  <br/>
+                                   <input type="text" class="form-control"  name="setting" id="setting"  placeholder="Diisi" required>
                         </div>
                         <div class="form-group row">
-                           <label class="control-label"> List Nomor Gulung</label>
-                                   <div id="no_tr_grey" class="col-md-12"></div>
+                           <label class="control-label"> Kg</label><br>
+                              <input id="idf" value="1" type="hidden" />
+                              <div id="divHobi"></div>
+                              <button type="button" class="btn btn-xs btn-warning" onclick="tambahItem(); return false;" >Tambah Item</button>
+                           <!--
+                                  1<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   2<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   3<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   4<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   5<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   6<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   7<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   8<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   9<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                   10<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    11<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    12<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    13<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    14<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    15<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    16<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    17<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    18<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    19<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                    20<input type='checkbox' name="id[]" value=""></input>
+                                  <input type="text" class="form-control"  name="kg_fin[]" id="kg_fin"  placeholder="Diisi" >
+                                -->
                         </div>
 
                         </div>
-                      
+                              
                       
                       <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
@@ -286,9 +321,8 @@
                       </div>
                     </div>
                   </div>
-                     </form>
+                   </form>
                 </div>
-           
 
 
   <script type="text/javascript" src="<?php echo base_url('assets/js/jquery-3.4.1.min.js');?>"></script>
@@ -297,6 +331,7 @@
   <script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
   <script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
   <script src="<?php echo base_url('view/assets/js/bootstrap.min.js')?>"></script>
+  <script src="<?php echo base_url('assets/js/number-validation.js')?>"></script>
   <!-- plugins -->
   
   <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
@@ -311,6 +346,7 @@
   <script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
   <script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
   <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+  <script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
   <!--Load JavaScript File-->
   <!--
   <script type="text/javascript">
@@ -323,162 +359,51 @@
     }
   </script>
 -->
-
-  <script>
-  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
-    // Kita sembunyikan dulu untuk loadingnya
-    $("#loading").hide();
-    
-    $("#kd_subcon").change(function(){ // Ketika user mengganti atau memilih data provinsi
-      $("#no_tr_maklun").hide(); // Sembunyikan dulu combobox kota nya
-      $("#loading").show(); // Tampilkan loadingnya
-    
-      $.ajax({
-        type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "<?php echo base_url("Penerimaan_kainjadi/listMaklun"); ?>", // Isi dengan url/path file php yang dituju
-        data: {kd_subcon : $("#kd_subcon").val() }, // data yang akan dikirim ke file yang dituju
-        dataType: "json",
-        beforeSend: function(e) {
-          if(e && e.overrideMimeType) {
-            e.overrideMimeType("application/json;charset=UTF-8");
-          }
-        },
-        success: function(response){ // Ketika proses pengiriman berhasil
-          $("#loading").hide(); // Sembunyikan loadingnya
-          // set isi dari combobox kota
-          // lalu munculkan kembali combobox kotanya
-          $("#no_tr_maklun").html(response.list_no_tr_maklun).show();
-        },
-        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-        }
-      });
-    });
-
-    
-  });
-  </script>
-
-
-    <script>
-  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
-    // Kita sembunyikan dulu untuk loadingnya
-    $("#loading").hide();
-    
-    $("#no_tr_maklun").change(function(){ // Ketika user mengganti atau memilih data provinsi
-      $("#kd_partai").hide(); // Sembunyikan dulu combobox kota nya
-      $("#loading").show(); // Tampilkan loadingnya
-    
-      $.ajax({
-        type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "<?php echo base_url("Penerimaan_kainjadi/listPartai"); ?>", // Isi dengan url/path file php yang dituju
-        data: {no_tr_maklun : $("#no_tr_maklun").val() }, // data yang akan dikirim ke file yang dituju
-        dataType: "json",
-        beforeSend: function(e) {
-          if(e && e.overrideMimeType) {
-            e.overrideMimeType("application/json;charset=UTF-8");
-          }
-        },
-        success: function(response){ // Ketika proses pengiriman berhasil
-          $("#loading").hide(); // Sembunyikan loadingnya
-          // set isi dari combobox kota
-          // lalu munculkan kembali combobox kotanya
-          $("#kd_partai").html(response.list_partai).show();
-        },
-        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-        }
-      });
-    });
-
-    
-  });
-  </script>
-
   <!---->
-  <script>
-  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
-    // Kita sembunyikan dulu untuk loadingnya
-    $("#loading").hide();
-    
-    $("#kd_partai").change(function(){ // Ketika user mengganti atau memilih data provinsi
-      $("#kd_kain").hide(); // Sembunyikan dulu combobox kota nya
-      $("#loading").show(); // Tampilkan loadingnya
-    
-      $.ajax({
-        type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "<?php echo base_url("Penerimaan_kainjadi/listKain"); ?>", // Isi dengan url/path file php yang dituju
-        data: {kd_partai : $("#kd_partai").val() }, // data yang akan dikirim ke file yang dituju
-        dataType: "json",
-        beforeSend: function(e) {
-          if(e && e.overrideMimeType) {
-            e.overrideMimeType("application/json;charset=UTF-8");
-          }
-        },
-        success: function(response){ // Ketika proses pengiriman berhasil
-          $("#loading").hide(); // Sembunyikan loadingnya
-          // set isi dari combobox kota
-          // lalu munculkan kembali combobox kotanya
-          $("#kd_kain").html(response.list_kain).show();
-        },
-        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-        }
-      });
-    });
-
-    
+<script language="javascript">
+   function tambahItem() {
+     var idf = document.getElementById("idf").value;
+     var stre;
+     var x=1;
+     stre="<p id='srow" + idf + "'>" + idf + "<input type='text' name='kg_fin[]' placeholder='Masukkan Kg' onkeypress='return isNumberKey(event)' autofocus required autocomplete='off'/> <a href='#' style=\"color:#3399FD;\" onclick='hapusElemen(\"#srow" + idf + "\"); return false;'>Hapus</a></p>";
+     $("#divHobi").append(stre);
+     idf = (idf-1) + 2;
+     
+     document.getElementById("idf").value = idf;
+   }
+   function hapusElemen(idf) {
+     $(idf).remove();
+   }
+</script>
+<SCRIPT src="http://code.jquery.com/jquery-2.1.1.js"></SCRIPT>
+<SCRIPT>
+function addMore() {
+  $("<DIV>").load("input.php", function() {
+      $("#product").append($(this).html());
+  }); 
+}
+function deleteRow() {
+  $('DIV.product-item').each(function(index, item){
+    jQuery(':checkbox', this).each(function () {
+            if ($(this).is(':checked')) {
+        $(item).remove();
+            }
+        });
   });
-  </script>
-
+}
+</SCRIPT>
 
    <script>
   $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
     // Kita sembunyikan dulu untuk loadingnya
     $("#loading").hide();
-    
-    $("#kd_partai").change(function(){ // Ketika user mengganti atau memilih data provinsi
-      $("#no_tr_grey").hide(); // Sembunyikan dulu combobox kota nya
-      $("#loading").show(); // Tampilkan loadingnya
-    
-      $.ajax({
-        type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "<?php echo base_url("Penerimaan_kainjadi/listTrGrey"); ?>", // Isi dengan url/path file php yang dituju
-        data: {kd_partai : $("#kd_partai").val() }, // data yang akan dikirim ke file yang dituju
-        dataType: "json",
-        beforeSend: function(e) {
-          if(e && e.overrideMimeType) {
-            e.overrideMimeType("application/json;charset=UTF-8");
-          }
-        },
-        success: function(response){ // Ketika proses pengiriman berhasil
-          $("#loading").hide(); // Sembunyikan loadingnya
-          // set isi dari combobox kota
-          // lalu munculkan kembali combobox kotanya
-          $("#no_tr_grey").html(response.list_no_tr_grey).show();
-        },
-        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
-          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
-        }
-      });
-    });
-
-    
-  });
-  </script>
-
-   <script>
-  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
-    // Kita sembunyikan dulu untuk loadingnya
-    $("#loading").hide();
-    
     $("#kd_kain").change(function(){ // Ketika user mengganti atau memilih data provinsi
       $("#kd_warna").hide(); // Sembunyikan dulu combobox kota nya
       $("#loading").show(); // Tampilkan loadingnya
     
       $.ajax({
         type: "POST", // Method pengiriman data bisa dengan GET atau POST
-        url: "<?php echo base_url("Penerimaan_kainjadi/listWarna"); ?>", // Isi dengan url/path file php yang dituju
+        url: "<?php echo base_url("Penerimaan_kainjadi/listWarnaNew"); ?>", // Isi dengan url/path file php yang dituju
         data: {kd_kain : $("#kd_kain").val() }, // data yang akan dikirim ke file yang dituju
         dataType: "json",
         beforeSend: function(e) {

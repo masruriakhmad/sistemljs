@@ -88,11 +88,13 @@
                     </div>
                   </div>
               </div>
+              <!--
                <div class="col-sm-12">
                 <a href="<?php echo base_url('Pengiriman_grey'); ?>" >
                   <button type="button" class="btn btn-primary btn-sm">Kembali</button><br/>
                 </a>
                   </div>
+                -->
               <div class="col-md-12 " style="margin-top:5px;">
     
               </div>
@@ -116,12 +118,17 @@
                           <th class="col-md-1">Kode partai</th>
                           <th class="col-md-3">Nama Kain</th>
                           <th >Nomor Gulung</th>
-                          <th >Nama Customer</th>
-                          <th >Nomor Wo</th>
+                          <th >Kg</th>
+                          <th >Jumlah Rol</th>
+                          <th >Subtotal Kg</th>
+                          <th >Customer</th>
+                          <th >Wo</th>
                         </tr>
                       </thead>
                       <?php
                         $no = 1;
+                        $total = 0;
+                        $total_kg = 0;
                         if($result->num_rows()>0)
                         {
                           foreach ($result->result() as $row)
@@ -139,6 +146,26 @@
                                 }
                                 ?>
                                 </td>
+                                <td>
+                                  <?php $data=explode(',',$row->list_kg_grey); 
+                                foreach($data AS $y)
+                                {
+                                  echo $y;
+                                  echo "<br>";
+                                }
+                                ?> 
+                                  </td>
+                                <td>
+                                  <?php 
+                                  echo $row->jml_rol;
+                                  $total += $row->jml_rol; 
+                                  ?>
+                                  </td>
+                                <td><?php 
+                                    echo number_format($row->subtotal_kg_grey,2);
+                                    $total_kg += $row->subtotal_kg_grey;
+                                 ?>
+                                 </td>
                                 <td><?php echo $row->nm_customer; ?></td>
                                 <td><?php echo $row->no_wo; ?></td>
                            </tr>
@@ -146,6 +173,16 @@
                         }
                       }
                       ?>
+                       <tr>
+                                <td><b>TOTAL</b></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><b><?php echo $total; ?></b></td>
+                                <td><b><?php echo number_format($total_kg,2); ?></b> </td>
+                                <td></td>
+                                <td></td>
+                           </tr>
                         </table>
                         
                       </div>
@@ -169,9 +206,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable();

@@ -117,16 +117,21 @@
                        
                           <th >No Produksi</th>
                           <th class="text-center">Tanggal</th>
-                          <th >Nama Benang</th>
-                          <th >Kode Mesin</th>
+                          <th >Mesin</th>
+                          <th >Benang</th>
                           <th >Jumlah (Cones)</th>
                           <th >Kg Awal</th>
                           <th >Kg Berjalan</th>
+                          <th class="col-md-1">%</th>
                           <th >Keterangan</th>
                           <th >User</th>
                           <th >Top Up</th>
                           <th >Cut</th>
                           <th >Finish</th>
+                          <?php if($this->session->userdata('level')=='webmaster'){
+                            ?>
+                          <th >Adjust</th>
+                        <?php } ?>
                         </tr>
                       </thead>
                       <?php
@@ -143,11 +148,12 @@
                                </a> 
                             </td>
                             <td><?php echo $row->tgl; ?></td>
-                            <td><?php echo $row->jenis_benang; ?></td>
                             <td><?php echo $row->no_mesin; ?></td>
+                            <td><?php echo $row->jenis_benang; ?></td>
                             <td><?php echo $row->jumlah; ?></td>
                             <td><?php echo number_format($row->kg,2); ?></td>
                             <td><?php echo number_format($row->kg_akhir,2); ?></td>
+                            <td><?php echo number_format($row->kg_akhir/$row->kg*100)." %"; ?></td>
                             <td><?php echo $row->ket; ?></td>
                             <td><?php echo $row->nm_user; ?></td>
                             <td>
@@ -175,6 +181,16 @@
                           </a> 
                            
                             </td>
+                            <?php if($this->session->userdata('level')=='webmaster'){
+                            ?>
+                            <td>
+                             <a href="<?php echo base_url('Produksi/edit/'.$row->no_produksi.''); ?>" data-confirm="Anda yakin ingin mengubah produksi ini?" data-toogle="tooltip" title="ubah transaksi">
+                               <button class="btn btn-circle btn-mn btn-warning" value="warning">
+                                <span class="glyphicon glyphicon-edit"></span>
+                              </button>
+                          </a> 
+                            </td>
+                          <?php } ?>
                           </tr>
                           <?php $no++;
                         }
@@ -203,9 +219,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable({

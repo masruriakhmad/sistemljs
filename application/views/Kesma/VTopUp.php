@@ -180,6 +180,68 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('#datatables-example').DataTable();
+  });
+
+   $(document).ready(function() {
+                resetcheckbox();
+                $('#selecctall').click(function(event) {  //on click
+                    if (this.checked) { // check select status
+                        $('.checkbox1').each(function() { //loop through each checkbox
+                            this.checked = true;  //select all checkboxes with class "checkbox1"              
+                        });
+                    } else {
+                        $('.checkbox1').each(function() { //loop through each checkbox
+                            this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+                        });
+                    }
+                });
+
+
+                $("#del_all").on('click', function(e) {
+                    e.preventDefault();
+                    var checkValues = $('.checkbox1:checked').map(function()
+                    {
+                        return $(this).val();
+                    }).get();
+                    console.log(checkValues);
+                    
+                    $.each( checkValues, function( i, val ) {
+                        $("#"+val).remove();
+                        });
+//                    return  false;
+                    $.ajax({
+                        url: '<?php echo base_url() ?>Kriteria/delete',
+                        type: 'post',
+                        data: 'ids=' + checkValues
+                    }).done(function(data) {
+                        $("#respose").html(data);
+                        $('#selecctall').attr('checked', false);
+                    });
+                });
+
+                $(".addrecord").click(function(e) {
+                    e.preventDefault();
+                    var url = $(this).attr('href');
+                    $.ajax({
+                        type: 'POST',
+                        url: url
+                    }).done(function() {
+                        window.location.reload();
+                    });
+                });
+                
+                function  resetcheckbox(){
+                $('input:checkbox').each(function() { //loop through each checkbox
+                this.checked = false; //deselect all checkboxes with class "checkbox1"                      
+                   });
+                }
+            });
+</script>
 
 
 <!-- custom -->

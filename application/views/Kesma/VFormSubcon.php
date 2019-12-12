@@ -28,8 +28,6 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     //set timezone
     <?php date_default_timezone_set('Asia/Jakarta'); ?>
@@ -240,7 +238,7 @@
                           Form <span class="fa-angle-right fa"></span> Form Data Master Subcon
                         </h3>
                     </div>
-                  <div class="col-md-10">
+                  <div class="col-md-12">
                   <div class="col-md-12 panel">
                     <div class="col-md-12 panel-heading">
                       <h4>Tambah Data Master Subcon</h4>
@@ -256,7 +254,7 @@
                               </div>
                               <br/><br/> <br/><br/> -->
                               <div class="form-group">
-                                <div class="col-sm-2">
+                                <div class="col-sm-6">
                                   <label class="control-label">Nama Subcon</label>
                                   <input class="form-control" id="nm_subcon" type="text" name="nm_subcon" placeholder="Diisi ">
                                 </div>
@@ -264,9 +262,9 @@
                               <br/><br/> <br/><br/>
 
                                <div class="form-group">
-                                <div class="col-sm-2">
+                                <div class="col-sm-6">
                                   <label class="control-label">Alamat</label>
-                                  <input class="form-control" id="alamat" type="text" name="alamat" placeholder="Diisi ">
+                                  <textarea class="form-control" id="alamat" type="text" name="alamat" placeholder="Diisi "></textarea>
                                 </div>
                               </div>
                               <br/><br/> <br/><br/>
@@ -283,20 +281,18 @@
 
 
 <!-- start: Javascript -->
-<script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
-<script src="<?php echo base_url('view/js/bootstrap.min.js')?>"></script>
-
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
 <!-- plugins -->
-<script src="<?php echo base_url('view/assets/js/plugins/moment.min.js')?>"></script>
+
+
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->

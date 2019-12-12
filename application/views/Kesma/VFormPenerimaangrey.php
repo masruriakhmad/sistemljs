@@ -29,7 +29,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
       <![endif]-->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript">
     //set timezone
     <?php date_default_timezone_set('Asia/Jakarta'); ?>
@@ -179,6 +178,7 @@
                                   <label class="control-label">Nomor Mesin</label>
                                    <input class="form-control" id="kd_mesin" type="hidden" name="kd_mesin" value="<?php echo $edit['kd_mesin'];?>" /readonly>
                                   <input class="form-control" id="no_mesin" type="text" name="no_mesin" value="<?php echo $edit['no_mesin'];?>" /readonly>
+                                  <input class="form-control" id="sku" type="hidden" name="sku" placeholder="Diisi " value="<?php echo $sku;?>" required>
                                 </div>
                               </div>
                               <br/><br/><br/>
@@ -203,7 +203,7 @@
                                <div class="form-group">
                                 <div class="col-sm-3">
                                   <label class="control-label">Kg Tersedia</label>
-                                  <input class="form-control" id="kg_akhir" type="text" name="kg_akhir" value="<?php echo $edit['kg_akhir'];?>" /readonly>
+                                  <input class="form-control" id="kg_akhir" type="text" name="kg_akhir" value="<?php echo number_format($edit['kg_akhir'],4);?>" /readonly>
                                   <input class="form-control" id="kd_mesin1" type="hidden" name="kd_mesin1" value="<?php echo $edit['kd_jenis'];?>" /readonly>
                                 </div>
                               </div>
@@ -226,16 +226,15 @@
                                 </div>
                               </div>
                               <br/><br/><br/>
-                              
+
                               <div class="form-group">
                                 <div class="col-sm-3">
-                                  <label class="control-label">Nomor WO</label><br>
-                                  <select  name="no_wo" id="no_wo" required>
-                                    <option value="0">STOCK</option>
-                                    <option class="col-sm-3" value="<?php echo $this->session->flashdata('no_wo');?>"><?php echo $this->session->flashdata('no_wo');?></option>
+                                  <label class="control-label">Nama Kain</label><br>
+                                  <select name="kd_kain" id="kd_kain" style="width: 200px;" required>  
+                                    <option class="col-sm-3" value="<?php echo $this->session->flashdata('kd_kain');?>"><?php echo $this->session->flashdata('nm_kain');?></option>
                                   <?php
-                                  foreach ($result4->result() as $row) {
-                                    echo "<option value='".$row->no_wo."'>".$row->no_wo."---->".$row->nm_customer."</option>";
+                                  foreach ($kain as $row) {
+                                    echo "<option value='".$row->kd_kain."'>".$row->nm_kain."</option>";
                                   }    
                                 ?>
 
@@ -245,20 +244,22 @@
                                 </div>
                               </div>
                               <br/><br/><br/>
-
-                               <div class="form-group">
+                              
+                              <div class="form-group">
                                 <div class="col-sm-3">
-                                  <label class="control-label">Nama Kain</label><br>
-                                  <select name="kd_kain" id="kd_kain" style="width: 200px;" required>
-                                          
-                                            <!--
-                                            <option value="">Pilih</option>
-                                          -->
-                                  </select>
+                                  <label class="control-label">Nomor WO</label><br>
+                                  <select  name="no_wo" id="no_wo" style="width: 200px;" required>
+                                    <option class="col-sm-3" value="<?php echo $this->session->flashdata('no_wo');?>"><?php echo $this->session->flashdata('no_wo');?></option>
+                                  
+
+                                <?php
+                                 echo "</select>"; ?>
 
                                 </div>
                               </div>
                               <br/><br/><br/>
+
+                               
 
                               <div class="form-group">
                                 <div class="col-sm-3">
@@ -313,7 +314,10 @@
                                   <label> 
                                   <B><h3> Nomor Transaksi Grey : </h3></B>
                                   <h3 style="color:red">
-                                  <B><?php echo $result6 ."<br>" ;?></h3> </B>
+                                  <B><?php echo $result6 ."<br>" ;?></h3></B>
+                                  <!--
+                                  <?php echo $sku;?>
+                                -->
                             
                                   <B><h3>Harap ditulis pada barang sebagai nama atau kode barang GREY !!!</h3><B></label>
                                 </div>
@@ -358,20 +362,17 @@
 
 
 <!-- start: Javascript -->
-<script src="<?php echo base_url('view/assets/js/jquery.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/jquery.ui.min.js')?>"></script>
-<script src="<?php echo base_url('view/assets/js/bootstrap.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/jquery.ui.min.js')?>"></script>
+<script src="<?php echo base_url('assets/js/bootstrap.min.js')?>"></script>
 
 <!-- plugins -->
-<script src="<?php echo base_url('view/assets/js/plugins/moment.min.js')?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.knob.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/ion.rangeSlider.min.js'); ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/bootstrap-material-datetimepicker.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.nicescroll.js') ;?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/jquery.mask.min.js'); ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/select2.full.min.js') ?>"></script>
-<script src="<?php echo base_url('view/assets/js/plugins/nouislider.min.js') ?>"></script>
 <script src="<?php echo base_url('view/assets/js/plugins/jquery.validate.min.js'); ?> />"></script>
+<script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
 
 <!-- custom -->
@@ -610,7 +611,7 @@
 <!-- jquery untuk menampilkan dinamis combo box dengan jquery -->
 <!-- Load librari/plugin jquery nya -->
   <script src="<?php echo base_url("assets/js/jquery.min.js"); ?>" type="text/javascript"></script>
-  
+  <!--
   <script>
   $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
     // Kita sembunyikan dulu untuk loadingnya
@@ -643,6 +644,75 @@
     });
   });
   </script>
+
+    <script>
+  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
+    // Kita sembunyikan dulu untuk loadingnya
+    $("#loading").hide();
+    
+    $("#kd_jenis").ready(function(){ // Ketika user mengganti atau memilih data provinsi
+      $("#kd_kain").hide(); // Sembunyikan dulu combobox kota nya
+      $("#loading").show(); // Tampilkan loadingnya
+    
+      $.ajax({
+        type: "POST", // Method pengiriman data bisa dengan GET atau POST
+        url: "<?php echo base_url("Produksi/listKain"); ?>", // Isi dengan url/path file php yang dituju
+        data: {kd_jenis : $("#kd_jenis").val()}, // data yang akan dikirim ke file yang dituju
+        dataType: "json",
+        beforeSend: function(e) {
+          if(e && e.overrideMimeType) {
+            e.overrideMimeType("application/json;charset=UTF-8");
+          }
+        },
+        success: function(response){ // Ketika proses pengiriman berhasil
+          $("#loading").hide(); // Sembunyikan loadingnya
+          // set isi dari combobox kota
+          // lalu munculkan kembali combobox kotanya
+          $("#kd_kain").html(response.list_kain).show();
+        },
+        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+        }
+      });
+    });
+  });
+  </script>
+-->
 <!-- end: Javascript -->
+
+<script type="text/javascript">
+  $(document).ready(function(){ // Ketika halaman sudah siap (sudah selesai di load)
+    // Kita sembunyikan dulu untuk loadingnya
+    $("#loading").hide();
+    
+    $("#kd_kain").change(function(){ // Ketika user mengganti atau memilih data provinsi
+      $("#no_wo").hide(); // Sembunyikan dulu combobox kota nya
+      $("#loading").show(); // Tampilkan loadingnya
+    
+      $.ajax({
+        type: "POST", // Method pengiriman data bisa dengan GET atau POST
+        url: "<?php echo base_url("Penerimaan_grey/getlistwo"); ?>", // Isi dengan url/path file php yang dituju
+        data: {id : $("#kd_kain").val() }, // data yang akan dikirim ke file yang dituju
+        dataType: "json",
+        beforeSend: function(e) {
+          if(e && e.overrideMimeType) {
+            e.overrideMimeType("application/json;charset=UTF-8");
+          }
+        },
+        success: function(response){ // Ketika proses pengiriman berhasil
+          $("#loading").hide(); // Sembunyikan loadingnya
+          // set isi dari combobox kota
+          // lalu munculkan kembali combobox kotanya
+          $("#no_wo").html(response.listwo).show();
+        },
+        error: function (xhr, ajaxOptions, thrownError) { // Ketika ada error
+          alert(xhr.status + "\n" + xhr.responseText + "\n" + thrownError); // Munculkan alert error
+        }
+      });
+    });
+
+    
+  });
+  </script>
 </body>
 </html>

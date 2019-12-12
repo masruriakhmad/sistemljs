@@ -89,9 +89,11 @@
                   </div>
               </div>
                <div class="col-sm-12">
+                <!--
                 <a href="<?php echo base_url('Penerimaan_kainjadi/create'); ?>" >
                   <button type="button" class="btn btn-primary btn-sm">Kembali</button><br/>
                 </a>
+              -->
                   </div>
               <div class="col-md-12 " style="margin-top:5px;">
                 
@@ -111,7 +113,14 @@
                       <table id="datatables-example" class="table table-striped table-bordered" width="100%" cellspacing="0" class="col-sm-5">
                       <thead style = "background-color :  #d6eaf8">
                         <tr>
-                          <th >List Partai</th>
+                          <th class="col-md-1" >No. Gulung</th>
+                          <th >Warna</th>
+                          <th class="col-md-1">Setting</th>
+                          <th class="col-md-1">Kg</th>
+                          <!--
+                          <th class="col-md-1">Edit</th>
+                          <th class="col-md-1">Hapus</th>
+                        -->
                         </tr>
                       </thead>
                       <?php
@@ -123,6 +132,25 @@
                           ?>
                            <tr>
                             <td><?php echo $row->no_tr_grey; ?></td>
+                            <td><?php echo $row->nm_warna; ?></td>
+                            <td><?php echo $row->setting; ?></td>
+                            <td><?php echo number_format($row->kg_fin,2); ?></td>
+                            <!--
+                            <td>
+                               <a href="<?php echo base_url('Penerimaan_kainjadi/editNew/'.$row->no_tr_grey.''); ?>" data-confirm="Apakah Anda Yakin untuk Mengubah?" data-toogle="tooltip" title="Edit">
+                               <button class="btn btn-circle btn-mn btn-warning" value="primary">
+                                <span class="fa fa-edit"></span>
+                              </button>
+                            </a>
+                            </td>
+                            <td>
+                               <a href="<?php echo base_url('Penerimaan_kainjadi/deleteNew/'.$row->no_tr_grey.''); ?>" data-confirm="Apakah Anda Yakin untuk Menghapus?" data-toogle="tooltip" title="Hapus">
+                               <button class="btn btn-circle btn-mn btn-danger" value="primary">
+                                <span class="fa fa-trash"></span>
+                              </button>
+                            </a>
+                            </td>
+                          -->
                            </tr>
                         <?php $no++;
                         }
@@ -151,9 +179,8 @@
 <script src="<?php echo base_url('assets/js/plugins/jquery.datatables.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/datatables.bootstrap.min.js'); ?>"></script>
 <script src="<?php echo base_url('assets/js/plugins/jquery.nicescroll.js'); ?>"></script>
+<script src="<?php echo base_url('assets/js/main.js'); ?>"></script>
 
-
-<!-- custom -->
 <script type="text/javascript">
   $(document).ready(function(){
     $('#datatables-example').DataTable();
